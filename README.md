@@ -1,4 +1,4 @@
-# This repo is for practicing Web APIs coding skills with Python + Flask
+## This repo is for practicing Web APIs coding skills with Python + Flask
 
 ## To install the environment
 python3 -m venv .api-practice

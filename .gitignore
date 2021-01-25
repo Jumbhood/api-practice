@@ -1,3 +1,4 @@
 .api-practice/
 .vscode/
 __pycache__/
+.env

@@ -7,37 +7,29 @@ from sqlalchemy import func
 def home():
     return '<p>API Homepage</p>'
 
-@app.route('/api/positions/all', methods=['GET'])
+@app.route('/api/blogs/all', methods=['GET'])
 def position_all():
     all_items = Items.query.all()
     results = []
     for item in all_items:
         final = {}
-        final['id'] = item.id
-        final['office'] = item.office
-        final['department'] = item.department
-        final['position'] = item.position
+        final['title'] = item.title
+        final['body'] = item.body
         final['url'] = item.url
         results.append(final)
     return jsonify(results)
 
-@app.route('/api/position', methods=['GET'])
+@app.route('/api/blog', methods=['GET'])
 def position_filter():
     query_parameters = request.args
     id = query_parameters.get('id')
-    office = query_parameters.get('office')
-    department = query_parameters.get('department')
-    position = query_parameters.get('position')
+    title = query_parameters.get('title')
 
     filters = []
     if id:
         filters.append(Items.id == id)
-    if office:
-        filters.append(func.lower(Items.office) == office.lower())
-    if department:
-        filters.append(func.lower(Items.department) == department.lower())
-    if position:
-        filters.append(func.lower(Items.position) == position.lower())
+    if title:
+        filters.append(func.lower(Items.title) == title.lower())
     all_items = Items.query.filter(*filters).all()
     
     if filters == []:
@@ -46,9 +38,8 @@ def position_filter():
     for item in all_items:
         final = {}
         final['id'] = item.id
-        final['office'] = item.office
-        final['department'] = item.department
-        final['position'] = item.position
+        final['title'] = item.title
+        final['body'] = item.body
         final['url'] = item.url
         results.append(final)
     return jsonify(results)
